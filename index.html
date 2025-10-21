@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Eatlyst</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --accent: #d9f7e6;
+      --muted: rgba(255,255,255,0.85);
+      --panel-bg: rgba(0,0,0,0.48);
+      --glass: rgba(255,255,255,0.06);
+    }
+
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial;
+      background: #111;
+      color: white;
+      overflow-x: hidden;
+    }
+
+    .bg {
+      background-image: url('background.jpg');
+      background-size: cover;
+      background-position: center;
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      filter: saturate(.9) contrast(.86);
+    }
+
+    .overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    .card {
+      width: calc(100% - 80px);
+      max-width: 1650px;
+      background: rgba(0,0,0,0.5);
+      border-radius: 26px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.8);
+      padding: 60px 60px 30px;
+      box-sizing: border-box;
+      backdrop-filter: blur(6px);
+      border: 2px solid rgba(255,255,255,0.06);
+      min-height: calc(100vh - 100px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .headline {
+      font-family: "Cinzel", Georgia, serif;
+      color: var(--accent);
+      text-align: center;
+      margin: 0 0 36px 0;
+      font-size: clamp(42px, 7.2vw, 96px);
+      line-height: 1;
+      letter-spacing: 1px;
+      transform-origin: center;
+      animation: headline-bounce 2s cubic-bezier(.25,.9,.35,1) infinite;
+    }
+    @keyframes headline-bounce {
+      0%   { transform: translateY(0); }
+      50%  { transform: translateY(-13px); }
+      100% { transform: translateY(0); }
+    }
+    .actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 98px;
+      align-items: center;
+      justify-items: center;
+    }
+    .action {
+      width: 100%;
+      max-width: 560px;
+      padding: 34px 28px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 18px;
+      text-align: center;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.02), 0 10px 30px rgba(0,0,0,0.6);
+      transition: transform .15s ease, background .15s ease, box-shadow .15s ease;
+      user-select: none;
+      border: 1px solid rgba(255,255,255,0.03);
+    }
+    .action:focus,
+    .action:hover {
+      transform: translateY(-6px);
+      background: rgba(255,255,255,0.085);
+      box-shadow: 0 18px 50px rgba(0,0,0,0.7);
+      outline: none;
+    }
+    .action .label {
+      font-family: "Cinzel", Georgia, serif;
+      font-size: clamp(20px, 3.6vw, 42px);
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      line-height: 1.05;
+      pointer-events: none;
+    }
+    .card-footer {
+      margin-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.05);
+      padding: 10px 14px;
+      border-radius: 15px;
+    }
+    .card-footer .left,
+    .card-footer .right {
+      font-family: "Montserrat", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: 0.3px;
+    }
+
+    .card-footer .left a,
+    .card-footer .right a {
+      color: #9fe9c7;
+      text-decoration: none;
+      margin-left: 4px;
+      transition: color 0.2s ease, text-shadow 0.2s ease;
+    }
+    .card-footer .left a:hover,
+    .card-footer .right a:hover {
+      color: #bfffe1;
+      text-shadow: 0 0 6px rgba(159,233,199,0.6);
+    }
+    .bottom-note {
+      width: 100%;
+      text-align: center;
+      padding: 8px 12px;
+      background: rgba(0, 0, 64, 0.45);
+      color: #c9bfff;
+      font-family: "Cinzel", "Montserrat", sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.4px;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      z-index: 5;
+      backdrop-filter: blur(4px);
+      border-top: 1px solid rgba(255,255,255,0.1);
+      animation: fadeUp 1.6s ease forwards;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .bottom-note a {
+      color: #b3e0ff;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .bottom-note a:hover {
+      color: #238e77;
+      text-shadow: 0 0 6px rgba(35, 138, 107, 0.8);
+    }
+    @media (max-width: 860px){
+      .actions { grid-template-columns: 1fr; gap: 18px; }
+      .card { padding: 28px; }
+      .headline { margin-bottom: 22px; }
+    }
+    .action:focus { box-shadow: 0 0 0 4px rgba(217,247,230,0.12); }
+    a.action { text-decoration: none; display: block; width: 100%; }
+  </style>
+</head>
+
+<body>
+  <div class="bg" aria-hidden="true"></div>
+  <div class="overlay" aria-hidden="true"></div>
+
+  <div class="wrap" role="main">
+    <div class="card" role="region" aria-label="Eatlyst start page">
+      <h1 class="headline">Eatlyst</h1>
+      <div class="actions" role="menu" aria-label="Choose an action">
+        <a href="home.html" class="action" role="menuitem" aria-label="Open Recipe of the Day">
+          <div class="label">Recipe of the Day !!</div>
+        </a>
+        <a href="suggest.html" class="action" role="menuitem" aria-label="Open Suggest a Food">
+          <div class="label">Suggest a Food !!</div>
+        </a>
+      </div>
+      <div class="card-footer">
+        <div class="left">
+          Created By <a href="https://www.linkedin.com/in/pranavvkaul/" target="_blank" rel="noopener">Pranav Kaul</a>
+        </div>
+        <div class="right">
+          <a href="https://www.iiitd.ac.in/" target="_blank" rel="noopener">IIIT-Delhi</a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-note">
+This project was done as part of the  
+<a href="https://techtree.iiitd.edu.in/viewDescription/filename?=BIO544" target="_blank"><strong>Computational Gastronomy (BIO544)</strong></a> 
+course, taught at 
+<a href="https://www.iiitd.ac.in" target="_blank"><strong>IIIT-Delhi</strong></a> 
+by 
+<a href="https://www.iiitd.ac.in/bagler" target="_blank"><strong>Prof. Ganesh Bagler</strong></a>.
+  </div>
+</body>
+</html>
